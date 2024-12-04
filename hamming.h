@@ -2,5 +2,5 @@
 #include <cstdint>
 #include <iostream>
 #include <bitset>
-std::vector<uint8_t> Encode(std::vector<uint8_t> bytes);
-std::vector<uint8_t> Decode(std::vector<uint8_t> bytes);
+std::vector<bool> Encoder(std::vector<bool> code);
+std::vector<bool> Decoder(std::vector<bool> a);

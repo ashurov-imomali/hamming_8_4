@@ -1,5 +1,17 @@
 #include "hamming.h"
 
+std::vector<bool> toBinary(int a) {
+    std::vector<bool> res(4,0);
+    size_t i = 0;
+    while (a > 0) {
+        res[3 - i] = a%2;
+        i++;
+        a/=2;
+    }
+    return res;
+}
+
+
 void EncodeFromInput() {
     int input;
     std::cout << "Enter a number between 0 and 15 to encode:";
@@ -10,11 +22,17 @@ void EncodeFromInput() {
         return;
     }
 
-    uint8_t byte = static_cast<uint8_t>(input);
-    std::vector<uint8_t> bytes = { byte };
-    std::vector<uint8_t> encoded = Encode(bytes);
 
-    std::cout << "Encoded result:" << std::bitset<8>(encoded[0]) << std::endl;
+    std::vector<bool> encoded = Encoder(toBinary(input));
+    for (int bit : toBinary(input)) {
+        std::cout << bit;
+    }
+    std::cout << " encoded to ";
+    for(int bit: encoded) {
+        std::cout<<bit;
+    }
+    std::cout << "\n";
+
 }
 
 void DecodeFromInput() {
@@ -27,18 +45,21 @@ void DecodeFromInput() {
         return;
     }
 
-    uint8_t byte = 0;
-    for (size_t i = 0; i < 8; ++i) {
-        byte |= (input[i] - '0') << (7 - i);
+    std::vector<bool> encode(8,0);
+    for (size_t i = 0; i < input.length(); i++) {
+        encode[i] = input[i] - '0';
     }
 
-    std::vector<uint8_t> bytes = { byte };
-    std::vector<uint8_t> decoded = Decode(bytes);
+    std::vector<bool> decoded = Decoder(encode);
 
     if (decoded.empty()) {
         std::cout << "Decoding failed due to 2 errors." << std::endl;
     } else {
-        std::cout << "Decoded result:" << std::bitset<4>(decoded[0]) << std::endl;
+        std::cout<<"Decode result is:";
+        for (int bit:decoded) {
+            std::cout << bit;
+        }
+        std::cout << "\n";
     }
 }
 
@@ -50,7 +71,9 @@ void ShowMenu() {
     std::cout << "Choose an option:";
 }
 
+
 int main() {
+
     int choice;
     do {
         ShowMenu();
