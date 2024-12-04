@@ -1,4 +1,3 @@
-
 #include "hamming.h"
 
 void EncodeFromInput() {
