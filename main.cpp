@@ -1,7 +1,4 @@
-#include <iostream>
-#include <cstdint>
-#include <vector>
-#include <bitset>
+
 #include "hamming.h"
 
 void EncodeFromInput() {
