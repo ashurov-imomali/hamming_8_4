@@ -2,7 +2,6 @@
 #include <cstdint>
 #include <vector>
 #include <bitset>
-#include <string>
 
 uint8_t EncodeHelper(uint8_t byte) {
     bool d1 = (byte >> 3) & 1;
